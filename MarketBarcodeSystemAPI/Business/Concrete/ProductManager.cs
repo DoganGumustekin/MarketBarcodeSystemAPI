@@ -19,6 +19,7 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
         }
 
 
+
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {

@@ -27,12 +27,31 @@ namespace MarketBarcodeSystemAPI.Controllers
             return BadRequest(result);
         }
 
+        //[HttpPost("yazıyaz")]
+        //public IActionResult yazdir(string text)
+        //{
+        //    var dosyaYolu = "C:\\x\\Yeni Metin Belgesi.txt";
+        //    using (StreamWriter Yaz = new StreamWriter(dosyaYolu))
+        //    {
+        //        Yaz.Write(text);
+        //    };
+            
+
+        //    return Ok();
+        //}
+
         //Kullanıcı ürünü barkottan okutacak(getbyid) ürün gelecek ve ürünün altında 
         //güncelle veya sil olacak bunlara bastığında delete veya update çalışacak!!!!!!
         //yani önce getbyid sonra Delete update. Bu duruma göre de delete veya update nin 
         //yapısının değişip değişmeyeceğini teyit et. Postmu olacak get mi yada ben zaten 
         //getbyid ile getirmişim onu delete ve update de kullanırken delete tuşuna delete 
         //controllerini, update tuşuna ise update controllerini bağlamalıyım.
+
+
+        //esp32 ile bir cihaz tasarlayıp, kasadaki sisteme bağlayıp buradan wifi ile kendi mobil uygulamama stok verilerini gönderebilirim.
+        //Kendi mobil uygulamamda backgroundService ile bu verileri sürekli yakalayıp (esp32 den gelen vei bir değişkene aktarılır.
+        //Daha sonra if gelenVeri == null ise işlem yapma Else bunu veritabanından düşür.) stoktan düşürebilirim.
+
         [HttpPost("update")]
         public IActionResult Update(Product product)
         {
