@@ -61,17 +61,21 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
             return new SuccessDataResult<Product>(_productDal.Get(p => p.BarcodeId == barcodeId));
         }
 
-        public IResult AddToCart(Product product) //sepete ekle
+        public IResult AddToCart(Product product, int NumberOfProducts) //sepete ekle
         {
-            var result = product.StockQuantity - 1;
-            product.StockQuantity = result;
-            _productDal.Update(product);
-            return new SuccessResult(Messages.AddToCart);
+            if (NumberOfProducts <= product.StockQuantity)
+            {
+                var result = product.StockQuantity - NumberOfProducts;
+                product.StockQuantity = result;
+                _productDal.Update(product);
+                return new SuccessResult(Messages.AddToCart);
+            }
+            return new SuccessResult(Messages.NotEnoughProduct);
         }
 
-        public IResult DeleteToCart(Product product) //sepetten çıkar
+        public IResult DeleteToCart(Product product, int NumberOfProducts) //sepetten çıkar
         {
-            var result = product.StockQuantity + 1;
+            var result = product.StockQuantity + NumberOfProducts;
             product.StockQuantity = result;
             _productDal.Update(product);
             return new SuccessResult(Messages.DeleteToCart);

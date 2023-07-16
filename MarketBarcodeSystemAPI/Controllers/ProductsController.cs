@@ -86,9 +86,9 @@ namespace MarketBarcodeSystemAPI.Controllers
         }
 
         [HttpPost("addtocart")]
-        public IActionResult AddToCart(Product product)
+        public IActionResult AddToCart(Product product, int NumberOfProducts)
         {
-            var result = _productService.AddToCart(product);
+            var result = _productService.AddToCart(product, NumberOfProducts);
             if (result.Success)
             {
                 return Ok(result);
@@ -97,9 +97,9 @@ namespace MarketBarcodeSystemAPI.Controllers
         }
 
         [HttpPost("deletetocart")]
-        public IActionResult DeleteToCart(Product product)
+        public IActionResult DeleteToCart(Product product, int NumberOfProducts)
         {
-            var result = _productService.AddToCart(product);
+            var result = _productService.DeleteToCart(product, NumberOfProducts);
             if (result.Success)
             {
                 return Ok(result);

@@ -10,7 +10,7 @@ namespace MarketBarcodeSystemAPI.Business.Abstract
         IResult Update(Product product);
         IResult Delete(Product product);
         IDataResult<Product> GetById(long barcodeId);
-        IResult AddToCart(Product product);
-        IResult DeleteToCart(Product product);
+        IResult AddToCart(Product product, int NumberOfProducts);
+        IResult DeleteToCart(Product product, int NumberOfProducts);
     }
 }
