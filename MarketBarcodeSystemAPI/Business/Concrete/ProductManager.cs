@@ -1,4 +1,5 @@
 ﻿using MarketBarcodeSystemAPI.Business.Abstract;
+using MarketBarcodeSystemAPI.Business.BusinessAspects.Autofac;
 using MarketBarcodeSystemAPI.Business.Constans;
 using MarketBarcodeSystemAPI.Business.ValidationRules.FluentValidation;
 using MarketBarcodeSystemAPI.Core.Aspects.Autofac.Validation;
@@ -19,7 +20,7 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
         }
 
 
-
+        [SecuredOperation("admin")]
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
@@ -32,6 +33,7 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
             return new SuccessResult(Messages.ProductAdded);
         }
 
+        
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Delete(Product product)
         {
@@ -62,6 +64,7 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
         }
 
         public IResult AddToCart(Product product, int NumberOfProducts) //sepete ekle
+                                                                        //NumberOfProducts = sepete eklenecek ürün sayısı
         {
             if (NumberOfProducts <= product.StockQuantity)
             {

@@ -4,6 +4,7 @@ namespace MarketBarcodeSystemAPI.Business.Constans
 {
     public static class Messages
     {
+        //PRODUCT
         public static string ProductAdded = "Ürün eklendi";
         public static string ProductDeleted = "Ürün Silindi";
         public static string ProductUpdated = "Ürün Güncellendi";
@@ -13,11 +14,14 @@ namespace MarketBarcodeSystemAPI.Business.Constans
         public static string AddToCart = "Ürün sepete eklendi";
         public static string NotEnoughProduct = "Markette yeterli ürün yok!";
         public static string DeleteToCart = "ürün sepetten çıkartıldı";
+        //LOGIN-REGISTER
         public static string UserRegistered = "Kullanıcı Başarıyla Kaydedildi";
         public static string UserNotFound = "Kullanıcı Bulunamadı";
         public static string PasswordError = "Şifre Hatalı";
         public static string SuccessfulLogin = "Giriş Başarılı";
         public static string UserAlreadyExists = "Kullanıcı Mevcut";
         public static string AccessTokenCreated = "Token Oluşturuldu";
+        //YETKİLENDİRME
+        public static string AuthorizationDenied = "Yetkiniz Yok";
     }
 }
