@@ -11,6 +11,7 @@ namespace Core.Utilities.IoC
     {
         public static IServiceProvider ServiceProvider { get; private set; }
 
+
         public static IServiceCollection Create(IServiceCollection services) //.net in servislerini al
         {
             ServiceProvider = services.BuildServiceProvider(); //ve bunları kendine build et 

@@ -9,12 +9,12 @@ namespace MarketBarcodeSystemAPI.Business.BusinessAspects.Autofac
     public class SecuredOperation: MethodInterception
     {
         private string[] _roles;
-        private IHttpContextAccessor _httpContextAccessor; //IHttpContextAccessor = jwt yide göndererek bir yere binlerce kişi istek yapabilir. 
-                                                           //burada her bir kişi için httpcontex oluşur. 
+        private IHttpContextAccessor _httpContextAccessor; 
+                                                           
         public SecuredOperation(string roles) //bana rolleri ver 
         {
-            _roles = roles.Split(','); //roles.split = bir metni benim belirttiğim karaktere göre array e at. 
-            _httpContextAccessor = ServiceTool.ServiceProvider.GetService<IHttpContextAccessor>(); //aoutofac ile oluşturduğum servis mimarisine ulaş onları getservice et. 
+            _roles = roles.Split(','); 
+            _httpContextAccessor = ServiceTool.ServiceProvider.GetService<IHttpContextAccessor>(); 
 
         }
 

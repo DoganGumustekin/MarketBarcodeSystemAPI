@@ -20,7 +20,7 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
         }
 
 
-        [SecuredOperation("admin")]
+        [SecuredOperation("adm")]
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
