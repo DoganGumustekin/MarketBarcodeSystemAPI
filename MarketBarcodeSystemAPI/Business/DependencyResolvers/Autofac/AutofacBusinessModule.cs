@@ -13,6 +13,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Module = Autofac.Module;
+using DataAccess.Concrete.EntityFramework;
+using MarketBarcodeSystemAPI.Core.Utilities.Security.JWT;
 
 namespace MarketBarcodeSystemAPI.Business.DependencyResolvers.Autofac
 {
@@ -22,6 +24,15 @@ namespace MarketBarcodeSystemAPI.Business.DependencyResolvers.Autofac
         {
             builder.RegisterType<ProductManager>().As<IProductService>().SingleInstance();
             builder.RegisterType<EfProductDal>().As<IProductDal>().SingleInstance();
+
+            builder.RegisterType<ComplaintManager>().As<IComplaintService>().SingleInstance();
+            builder.RegisterType<EfComplaintDal>().As<IComplaintDal>().SingleInstance();
+
+            builder.RegisterType<UserManager>().As<IUserService>();
+            builder.RegisterType<EfUserDal>().As<IUserDal>();
+
+            builder.RegisterType<AuthManager>().As<IAuthService>();
+            builder.RegisterType<JwtHelper>().As<ITokenHelper>();
 
             builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>();
 

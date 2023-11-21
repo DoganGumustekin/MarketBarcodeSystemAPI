@@ -27,31 +27,24 @@ namespace MarketBarcodeSystemAPI.Controllers
             return BadRequest(result);
         }
 
-        //[HttpPost("yazıyaz")]
-        //public IActionResult yazdir(string text)
-        //{
-        //    var dosyaYolu = "C:\\x\\Yeni Metin Belgesi.txt";
-        //    using (StreamWriter Yaz = new StreamWriter(dosyaYolu))
-        //    {
-        //        Yaz.Write(text);
-        //    };
-            
+        //şikayet entegrasyonu eklenebilir. kullanıcılar mobil uygulamadan bu ürünü şikayet et 
+        //tuşuna basar. herhangi bir sorun var ise o ürünü şikayet edebilir. bu şikayet ise müdürün
+        //karşısına çıkar.
 
-        //    return Ok();
-        //}
+        //şikayet tablosu olacak. tablodan joinleyerek user ve ürün bilgilerini
+        //çekip müdüre listelet. yeniden eskiye göre (tarih) listelet
+        //şikayet et butonuna basıldığında şikayet tablosuna girilen 
+        //değerleri kayıt et. müdüre de listelemesini çek. 
 
-        //Kullanıcı ürünü barkottan okutacak(getbyid) ürün gelecek ve ürünün altında 
-        //güncelle veya sil olacak bunlara bastığında delete veya update çalışacak!!!!!!
-        //yani önce getbyid sonra Delete update. Bu duruma göre de delete veya update nin 
-        //yapısının değişip değişmeyeceğini teyit et. Postmu olacak get mi yada ben zaten 
-        //getbyid ile getirmişim onu delete ve update de kullanırken delete tuşuna delete 
-        //controllerini, update tuşuna ise update controllerini bağlamalıyım.
+        //ischecked alanı, şikayet edliriken gönderdildiğinde her zman true 
+        //gidecek müdür kontrol ettirip düzeltince ischecked false olacak. 
+        //false olduğunda user şikayetine kontrol edildi diye görecek.
+        //fluentvalidation ile bir liste yap bu listeye argo kelimeleri ekle
+        //şikayet edilirken bu argo kelimeler kullanılmış ise bir mesaj döndür
+        //ve argo kelime kullanma diye düzelt.
 
-
-        //esp32 ile bir cihaz tasarlayıp, kasadaki sisteme bağlayıp buradan wifi ile kendi mobil uygulamama stok verilerini gönderebilirim.
-        //Kendi mobil uygulamamda backgroundService ile bu verileri sürekli yakalayıp (esp32 den gelen vei bir değişkene aktarılır.
-        //Daha sonra if gelenVeri == null ise işlem yapma Else bunu veritabanından düşür.) stoktan düşürebilirim.
-
+        //müdür şikayeti düzeltince kusura bakmayın bunun için 
+        //gibisindien bir özür mesajı göndersin.
         [HttpPost("update")]
         public IActionResult Update(Product product)
         {

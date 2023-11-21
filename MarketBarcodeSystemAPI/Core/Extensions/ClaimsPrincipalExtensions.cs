@@ -9,16 +9,15 @@ namespace Core.Extensions
 {
     public static class ClaimsPrincipalExtensions
     {
-        //this ClaimsPrincipal claimsPrincipal bir kişinin claimlerine ulaşmak için .net te olan class
-        public static List<string> Claims(this ClaimsPrincipal claimsPrincipal, string claimType) //hangi claim type yi bulmak için yazılan class
+        public static List<string> Claims(this ClaimsPrincipal claimsPrincipal, string claimType) 
         {
-            var result = claimsPrincipal?.FindAll(claimType)?.Select(x => x.Value).ToList();//? = null olabilir token istenmemiş olabilir. ilgili claim type yi getir.
+            var result = claimsPrincipal?.FindAll(claimType)?.Select(x => x.Value).ToList();
             return result;
         }
 
-        public static List<string> ClaimRoles(this ClaimsPrincipal claimsPrincipal) //çoğunlukla roller lazım
+        public static List<string> ClaimRoles(this ClaimsPrincipal claimsPrincipal)
         {
-            return claimsPrincipal?.Claims(ClaimTypes.Role); //direk claimPrincipal.claimroles dediğmde direk rolleri döndür.
+            return claimsPrincipal?.Claims(ClaimTypes.Role); 
         }
     }
 }

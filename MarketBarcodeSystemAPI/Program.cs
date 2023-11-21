@@ -25,6 +25,7 @@ builder.Services.Configure<TokenOptions>(builder.Configuration.GetSection("Token
 builder.Services.AddDependencyResolvers(new ICoreModule[] {
     new CoreModule()
 });
+//ServiceTool.Create(builder.Services);
 
 var app = builder.Build();
 app.UseAuthentication();

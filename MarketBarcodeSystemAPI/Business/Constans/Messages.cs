@@ -23,5 +23,8 @@ namespace MarketBarcodeSystemAPI.Business.Constans
         public static string AccessTokenCreated = "Token Oluşturuldu";
         //YETKİLENDİRME
         public static string AuthorizationDenied = "Yetkiniz Yok";
+        //ŞİKAYET-COMPLAINT
+        public static string ComplaintAdded = "Şikayetiniz için teşekkür ederiz. Yönetici tarafından bilgilendirileceksiniz.";
+        public static string ComplaintDeleted = "şikayetiniz silindi";
     }
 }

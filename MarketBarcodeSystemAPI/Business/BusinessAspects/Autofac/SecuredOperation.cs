@@ -3,6 +3,7 @@ using Core.Extensions;
 using Core.Utilities.IoC;
 using MarketBarcodeSystemAPI.Business.Constans;
 using MarketBarcodeSystemAPI.Core.Utilities.Interceptors;
+using System.Security.Claims;
 
 namespace MarketBarcodeSystemAPI.Business.BusinessAspects.Autofac
 {
@@ -20,7 +21,10 @@ namespace MarketBarcodeSystemAPI.Business.BusinessAspects.Autofac
 
         protected override void OnBefore(IInvocation invocation) //methodun önünde çalıştır.
         {
-            var roleClaims = _httpContextAccessor.HttpContext.User.ClaimRoles();//o anki kullanıcının claim rollerini bul 
+            var roleClaims = _httpContextAccessor.HttpContext.User.Claims
+                            .Where(c => c.Type == ClaimTypes.Role)
+                            .Select(c => c.Value);
+            //var roleClaims = _httpContextAccessor.HttpContext.User.ClaimRoles();//o anki kullanıcının claim rollerini bul 
             foreach (var role in _roles)
             {
                 if (roleClaims.Contains(role))//claimlerinin içinde ilgili rol varsa 
