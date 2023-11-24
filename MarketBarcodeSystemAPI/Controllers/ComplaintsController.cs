@@ -7,11 +7,11 @@ namespace MarketBarcodeSystemAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CoplaintsController : ControllerBase
+    public class ComplaintsController : ControllerBase
     {
         IComplaintService _complaintService;
 
-        public CoplaintsController(IComplaintService complaintService)
+        public ComplaintsController(IComplaintService complaintService)
         {
             _complaintService = complaintService;
         }
