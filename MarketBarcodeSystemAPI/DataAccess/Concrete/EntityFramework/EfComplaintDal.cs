@@ -21,6 +21,7 @@ namespace MarketBarcodeSystemAPI.DataAccess.Concrete.EntityFramework
                               join user in context.User on complaint.UserId equals user.UserId into userJoin
                               from user in userJoin.DefaultIfEmpty()
                               where acc.AccountId == account.AccountId
+                              orderby complaint.ComplaintDate descending
                               select new ComplaintForManagerModel
                               {
                                   ComplaintId = complaint.ComplaintId,
