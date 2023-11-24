@@ -1,4 +1,6 @@
-﻿using MarketBarcodeSystemAPI.Business.Abstract;
+﻿using Core.Entities.Concrete;
+using DataAccess.Concrete.EntityFramework;
+using MarketBarcodeSystemAPI.Business.Abstract;
 using MarketBarcodeSystemAPI.Business.Constans;
 using MarketBarcodeSystemAPI.Business.ValidationRules.FluentValidation;
 using MarketBarcodeSystemAPI.Core.Aspects.Autofac.Validation;
@@ -45,9 +47,16 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
             return new SuccessResult(Messages.ComplaintDeleted);
         }
 
+        //Buda kullanıcının göreceği kendi şikayet listesi.
         public IDataResult<List<Complaint>> GetComplaints(int userId)
         {
             return new SuccessDataResult<List<Complaint>>(_complaintDal.GetAll(p => p.UserId == userId));
+        }
+
+        //Bu müdürün göreceği şikayet listesi.
+        public IDataResult<List<ComplaintForManagerModel>> GetComplaintsForManager(Account account)
+        {
+            return new SuccessDataResult<List<ComplaintForManagerModel>>(_complaintDal.GetComplaintsForManager(account)); //claimleri çeker
         }
     }
 }

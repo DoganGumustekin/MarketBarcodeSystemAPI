@@ -45,6 +45,22 @@ namespace MarketBarcodeSystemAPI.Controllers
 
         //müdür şikayeti düzeltince kusura bakmayın bunun için 
         //gibisindien bir özür mesajı göndersin.
+
+
+
+        //Account tablosuna el ile ekleme yapılabilir. Bu tabloda Userid
+        //alanı müdürün userid si olacak buraya sadece ben kayıt ekler veya 
+        //günceller veya silerim. buranın herhangi bir fonksiyonu olmayacak.
+        //dışarıdan erişilip işlem yapılabilir olmayacak. Bu şikayetleri 
+        //hangi kuruma gidecek onu ayarlamak için yaptım. bu kısıma başka
+        //implementasyonlarda daha sonra eklenebilir. Burdaki AccountId bile 
+        //el ile verilecek.
+
+
+        //market elemanlarını sadece müdür atayabilir. user tablosuna bir alan ekle. müdür bu alanı 
+        //true gönderirse bu bir market elemanı olacak.
+
+        //Product tablosuna accountid ekle. bu ürün hangi markette bulunuyor bilmeliyim.
         [HttpPost("update")]
         public IActionResult Update(Product product)
         {

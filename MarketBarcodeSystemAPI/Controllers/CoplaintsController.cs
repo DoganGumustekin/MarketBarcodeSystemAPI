@@ -48,5 +48,18 @@ namespace MarketBarcodeSystemAPI.Controllers
             }
             return BadRequest(result);
         }
+
+
+        //müdürün göreceği şikayet listesi.
+        [HttpPost("GetComplaintsForManager")]
+        public IActionResult GetComplaintsForManager(Account account)
+        {
+            var result = _complaintService.GetComplaintsForManager(account);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
     }
 }
