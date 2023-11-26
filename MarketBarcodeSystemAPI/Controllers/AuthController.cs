@@ -1,4 +1,6 @@
 ﻿using MarketBarcodeSystemAPI.Business.Abstract;
+using MarketBarcodeSystemAPI.Core.Entities.Concrete;
+using MarketBarcodeSystemAPI.Entities.Concrete;
 using MarketBarcodeSystemAPI.Entities.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +12,12 @@ namespace MarketBarcodeSystemAPI.Controllers
     public class AuthController : Controller
     {
         private IAuthService _authService;
+        private IUserService _userService;
 
-        public AuthController(IAuthService authService)
+        public AuthController(IAuthService authService, IUserService userService)
         {
             _authService = authService;
+            _userService = userService;
         }
 
         [HttpPost("login")]
@@ -51,6 +55,18 @@ namespace MarketBarcodeSystemAPI.Controllers
             }
 
             return BadRequest(result.Message);
+        }
+
+        //Müdürün Göreceği user listesi. Bu listeden market elemanını belirler.
+        [HttpGet("GetUserList")]
+        public IActionResult GetUserList() 
+        {
+            var result = _userService.GetUserList();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
         }
     }
 }

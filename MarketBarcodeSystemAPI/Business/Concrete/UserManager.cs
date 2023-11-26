@@ -1,7 +1,10 @@
 ﻿using Core.Entities.Concrete;
 using MarketBarcodeSystemAPI.Business.Abstract;
 using MarketBarcodeSystemAPI.Core.Entities.Concrete;
+using MarketBarcodeSystemAPI.Core.Utilities.Results;
 using MarketBarcodeSystemAPI.DataAccess.Abstract;
+using MarketBarcodeSystemAPI.DataAccess.Concrete.EntityFramework;
+using MarketBarcodeSystemAPI.Entities.Concrete;
 
 namespace MarketBarcodeSystemAPI.Business.Concrete
 {
@@ -27,6 +30,11 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
         public User GetByMail(string email)
         {
             return _userDal.Get(u => u.Email == email);
+        }
+
+        public IDataResult<List<UserListModel>> GetUserList()
+        {
+            return new SuccessDataResult<List<UserListModel>>(_userDal.GetUsers());
         }
     }
 }

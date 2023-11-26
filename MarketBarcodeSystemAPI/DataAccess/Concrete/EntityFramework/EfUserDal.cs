@@ -3,6 +3,7 @@ using MarketBarcodeSystemAPI.Core.DataAccess.EntityFramework;
 using MarketBarcodeSystemAPI.Core.Entities.Concrete;
 using MarketBarcodeSystemAPI.DataAccess.Abstract;
 using MarketBarcodeSystemAPI.DataAccess.Concrete.EntityFramework;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,27 @@ namespace DataAccess.Concrete.EntityFramework
                 return result.ToList();
 
             }
+        }
+
+        public List<UserListModel> GetUsers()
+        {
+            using (var context = new MarketManagementContext())
+            {
+                    var result = context.User
+                .Select(u => new UserListModel
+                {
+                    UserId = u.UserId,
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    Email = u.Email,
+                    isWorkMan = u.isWorkMan,
+                    Status = u.Status
+                })
+                .ToList();
+
+                return result;
+            }
+
         }
     }
 }

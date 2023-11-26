@@ -31,6 +31,7 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
                 LastName = userForRegisterDto.LastName,
                 PasswordHash = passwordHash,
                 PasswortSalt = passwordSalt,
+                isWorkMan = false,
                 Status = true
             };
             _userService.Add(user); //ve ekliyoruz. 

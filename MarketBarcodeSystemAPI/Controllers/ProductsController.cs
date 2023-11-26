@@ -61,12 +61,22 @@ namespace MarketBarcodeSystemAPI.Controllers
 
 
         //market elemanlarını sadece müdür atayabilir. user tablosuna bir alan ekle. müdür bu alanı 
-        //true gönderirse bu bir market elemanı olacak.
+        //true gönderirse bu bir market elemanı olacak. yada bir sayfa olacak. müdür
+        //market elemanı ekle tuşuna bastığında o sayfa açılacak. ekle tuşuna basınca
+        //kayıt et ve bu alanı true yap. yada isWorkMan alanı her zaman fase olacak
+        //müdür kayıtlı olan userleri görecek bu userlerde arama yeri olacak elemanı
+        //arayacak bulacak ve market elemanı olarak ayarla deyince bu alan true olacak.
+
+        //business da update methodu kullanarak isWorkMan alanını güncelleyeceksin
+        //bu müdür tarafından market elemanı atayabilmek için.
 
         //Product tablosuna accountid ekle. bu ürün hangi markette bulunuyor bilmeliyim.
 
         //Complaint tablosundaki date alanını frontend ten date.Now neyse onu gönderecek.
         //yani şikayet eklenirken.
+
+        //müdür user listesinden bazı kullanıcıları engelleyebilecek. en son iş bu.
+
         [HttpPost("update")]
         public IActionResult Update(Product product)
         {
