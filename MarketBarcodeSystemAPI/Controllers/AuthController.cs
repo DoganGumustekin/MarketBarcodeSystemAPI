@@ -68,5 +68,17 @@ namespace MarketBarcodeSystemAPI.Controllers
             }
             return BadRequest(result);
         }
+
+        //Müdürün market elemanı atama isteği.
+        [HttpPost("WorkManUpdate")]
+        public IActionResult WorkManUpdate(User user)
+        {
+            var result = _userService.WorkManUpdate(user);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
     }
 }

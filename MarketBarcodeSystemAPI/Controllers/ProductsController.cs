@@ -27,18 +27,6 @@ namespace MarketBarcodeSystemAPI.Controllers
             return BadRequest(result);
         }
 
-        //yapıldı-----------------------------
-        //şikayet entegrasyonu eklenebilir. kullanıcılar mobil uygulamadan bu ürünü şikayet et 
-        //tuşuna basar. herhangi bir sorun var ise o ürünü şikayet edebilir. bu şikayet ise müdürün
-        //karşısına çıkar.
-
-        //yapıldı-----------------------------
-        //şikayet tablosu olacak. tablodan joinleyerek user ve ürün bilgilerini
-        //çekip müdüre listelet. yeniden eskiye göre (tarih) listelet
-        //şikayet et butonuna basıldığında şikayet tablosuna girilen 
-        //değerleri kayıt et. müdüre de listelemesini çek. 
-
-
         //ischecked alanı, şikayet edliriken gönderdildiğinde her zman true 
         //gidecek müdür kontrol ettirip düzeltince ischecked false olacak. 
         //false olduğunda user şikayetine kontrol edildi diye görecek.
@@ -67,6 +55,7 @@ namespace MarketBarcodeSystemAPI.Controllers
         //müdür kayıtlı olan userleri görecek bu userlerde arama yeri olacak elemanı
         //arayacak bulacak ve market elemanı olarak ayarla deyince bu alan true olacak.
 
+        //YAPILDI------------------------------------
         //business da update methodu kullanarak isWorkMan alanını güncelleyeceksin
         //bu müdür tarafından market elemanı atayabilmek için.
 
@@ -77,6 +66,10 @@ namespace MarketBarcodeSystemAPI.Controllers
 
         //müdür user listesinden bazı kullanıcıları engelleyebilecek. en son iş bu.
 
+        //DTO dan gönderdiğin müdürün görmesi gereken user listesi modelini değiştir.
+        //Ana user modeli göndereceksin. 
+
+        //Ürünlerin dışardan markete gelirken bir implementasyonu yapılabilir. sonraki aşama
         [HttpPost("update")]
         public IActionResult Update(Product product)
         {

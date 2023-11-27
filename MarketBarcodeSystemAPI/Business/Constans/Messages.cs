@@ -26,5 +26,7 @@ namespace MarketBarcodeSystemAPI.Business.Constans
         //ŞİKAYET-COMPLAINT
         public static string ComplaintAdded = "Şikayetiniz için teşekkür ederiz. Yönetici tarafından bilgilendirileceksiniz.";
         public static string ComplaintDeleted = "şikayetiniz silindi";
+        //MÜDÜR-MARKET ELEMANI
+        public static string AssignWorkManSuccessfully = "Market Elemanı Ataması Başarılı";
     }
 }
