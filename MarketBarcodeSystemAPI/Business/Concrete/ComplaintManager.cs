@@ -17,16 +17,19 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
     public class ComplaintManager : IComplaintService
     {
         IComplaintDal _complaintDal;
+        IProductDal _productDal;
 
-        public ComplaintManager(IComplaintDal complaintDal)
+        public ComplaintManager(IComplaintDal complaintDal, IProductDal productDal)
         {
             _complaintDal = complaintDal;
+            _productDal = productDal;
+
         }
 
         [ValidationAspect(typeof(ComplaintValidator))]
         public IResult AddComplaint(Complaint complaint)
         {
-            IResult result = BusinessRules.Run();
+            IResult result = BusinessRules.Run(IsThisProductAvailable(complaint.BarcodeId,complaint.AccountId));
             if (result != null)
             {
                 return result;
@@ -35,10 +38,12 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
             return new SuccessResult(Messages.ComplaintAdded);
         }
 
+        
+
         [ValidationAspect(typeof(ComplaintValidator))]
         public IResult DeleteComplaint(Complaint complaint)
         {
-            IResult result = BusinessRules.Run();
+            IResult result = BusinessRules.Run(IsThisProductAvailable(complaint.BarcodeId,complaint.AccountId));
             if (result != null)
             {
                 return result;
@@ -57,6 +62,34 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
         public IDataResult<List<ComplaintForManagerModel>> GetComplaintsForManager(Account account)
         {
             return new SuccessDataResult<List<ComplaintForManagerModel>>(_complaintDal.GetComplaintsForManager(account)); //claimleri çeker
+        }
+
+        //Müdürün Complaintin ischeckedini true yapması.
+        public IResult ComplaintChecked(Complaint complaint)
+        {
+            IResult result = BusinessRules.Run();
+            if (result != null)
+            {
+                return result;
+            }
+            _complaintDal.Update(complaint);
+            return new SuccessResult(Messages.ComplaintUpdateisChecked);
+        }
+
+
+
+
+
+
+
+        private IResult IsThisProductAvailable(long barcodeId, int accountId)
+        {
+            var result = _productDal.GetAll(p => p.BarcodeId == barcodeId && p.AccountId == accountId).Any();
+            if (result)
+            {
+                return new SuccessResult();
+            }
+            return new ErrorResult(Messages.ProductIsNotAvailable);
         }
     }
 }

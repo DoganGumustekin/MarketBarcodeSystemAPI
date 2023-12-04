@@ -61,5 +61,20 @@ namespace MarketBarcodeSystemAPI.Controllers
             }
             return BadRequest(result);
         }
+
+        //Müdürün complaint için ischeck false yapma. Yani şikayeti kontrol
+        //etti müdür ve WorkMan e bildirim gönderdi burada bildirim ve mesaj ayarla.
+        //complaint teki ischecked true olursa frontend te Userin şikayet listesinde kontrol edildi 
+        //yazacak.
+        [HttpPost("ComplaintChecked")]
+        public IActionResult ComplaintChecked(Complaint complaint)
+        {
+            var result = _complaintService.ComplaintChecked(complaint);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
     }
 }

@@ -12,5 +12,6 @@ namespace MarketBarcodeSystemAPI.Business.Abstract
         IResult DeleteComplaint(Complaint complaint);
         IDataResult<List<Complaint>> GetComplaints(int userId);
         IDataResult<List<ComplaintForManagerModel>> GetComplaintsForManager(Account account);
+        IResult ComplaintChecked(Complaint complaint);
     }
 }

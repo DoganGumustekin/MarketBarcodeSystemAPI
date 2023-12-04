@@ -27,8 +27,9 @@ namespace MarketBarcodeSystemAPI.Controllers
             return BadRequest(result);
         }
 
-        //ischecked alanı, şikayet edliriken gönderdildiğinde her zman true 
-        //gidecek müdür kontrol ettirip düzeltince ischecked false olacak. 
+        //YAPILDI------------------------------------
+        //ischecked alanı, şikayet edliriken gönderdildiğinde her zman false 
+        //gidecek müdür kontrol ettirip düzeltince ischecked true olacak. 
         //false olduğunda user şikayetine kontrol edildi diye görecek.
         //fluentvalidation ile bir liste yap bu listeye argo kelimeleri ekle
         //şikayet edilirken bu argo kelimeler kullanılmış ise bir mesaj döndür
@@ -59,6 +60,7 @@ namespace MarketBarcodeSystemAPI.Controllers
         //business da update methodu kullanarak isWorkMan alanını güncelleyeceksin
         //bu müdür tarafından market elemanı atayabilmek için.
 
+        //YAPILDI----------------------------------
         //Product tablosuna accountid ekle. bu ürün hangi markette bulunuyor bilmeliyim.
 
         //Complaint tablosundaki date alanını frontend ten date.Now neyse onu gönderecek.
@@ -66,10 +68,35 @@ namespace MarketBarcodeSystemAPI.Controllers
 
         //müdür user listesinden bazı kullanıcıları engelleyebilecek. en son iş bu.
 
-        //DTO dan gönderdiğin müdürün görmesi gereken user listesi modelini değiştir.
-        //Ana user modeli göndereceksin. 
+        //DTO dan gönderdiğin müdürün görmesi gereken user listesi var. Burada passwordhash
+        //ve PasswortSalt e gönderirken frontend den bir çözüm bulmalısın.
 
         //Ürünlerin dışardan markete gelirken bir implementasyonu yapılabilir. sonraki aşama
+
+        //sepeti onayla tuşu olacak buna tıklandığında karekod oluşacak
+        //kasiyer bu karekodu bişeyle okuttuğu anda websitesinde bilgiler görünecek.
+        //sonra kasiyer manuel olarak poşeti kont. edecek. herşey normalse onayı verecek.
+
+        //kullanıcı ürün alım satım mı yapacak yoksa başka bir şey mi yapacak ona göre sayfalar değişebilir.
+
+        //şikayet edilen ürünü müdür görünce düzeltmek için market elemanına bildirim gibi bişey gönderecek
+        //market elemanı sorunu giderdiğinde sorun giderildi tuşuna basacak ve hem müdüre hemde şikayet eden
+        //kişiye gerekli bildirimler gidecek. aynı zmanda müdür elemaı telno dan arayabilip değiştirtebilecek.
+
+        //YAPILDI------------------------------------
+        //şikayet edilirken ürünün okutulduğu barcodeid veritabanında varmı onu kont. et bu product tablosuna 
+        //yeni alan eklenmeli accountid. where şartında hem barcodeid hemde accountid si eşleşenleri şi,kayet 
+        //olarak kaydet.
+
+        //getcomplaint şikeyet ettiği markete
+        //göre ayrı ayrı listeleme yap(accountid ye göre frontend de bu ayrıştırılabilir).
+
+        //argo kelime kullanılırsa, hatayı frontende gönder.
+
+        //User hangi marketin ürünü şikayet edecek. Bunun için bir çözüm bulmalısın... aslında çözümü yapmışsın
+        //çünkü artık product tablonda accountid var. bir DTO yaz. şikayet etmek istediği ürünü kullanıcı barkoda
+        //okuttuktan sonra şikayet et tuşuna bastıktan sonra bu dto ile accountid ve account nameyi çek ekranda
+        //şikayet etme sayfasında bunları da göster.
         [HttpPost("update")]
         public IActionResult Update(Product product)
         {

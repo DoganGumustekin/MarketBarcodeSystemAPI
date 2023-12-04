@@ -13,7 +13,7 @@ namespace MarketBarcodeSystemAPI.Business.ValidationRules.FluentValidation
 
         private bool ComplaintCorrect(string complaintDescription)
         {
-            string[] x = { "salak", "mal" };
+            string[] x = { "argo", "küfür" };
             foreach (string item in x)
             {
                 if (complaintDescription.Contains(item))
