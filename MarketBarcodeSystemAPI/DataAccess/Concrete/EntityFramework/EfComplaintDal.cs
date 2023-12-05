@@ -9,6 +9,7 @@ namespace MarketBarcodeSystemAPI.DataAccess.Concrete.EntityFramework
 {
     public class EfComplaintDal : EfEntityRepositoryBase<Complaint, MarketManagementContext>, IComplaintDal
     {
+        //müdürün göreceği şikayet listesi.
         public List<ComplaintForManagerModel> GetComplaintsForManager(Account account)
         {
             using (var context = new MarketManagementContext())
@@ -39,6 +40,38 @@ namespace MarketBarcodeSystemAPI.DataAccess.Concrete.EntityFramework
                 return result.ToList();
             }
         }
+
+
+        //Şikayet ekleme joini
+        //public ComplaintParamModel GetComplaintForAdd(Complaint complaint)
+        //{
+        //    using (var context = new MarketManagementContext())
+        //    {
+        //        var result = (from c in context.Complaints
+        //                      join p in context.Products on c.BarcodeId equals p.BarcodeId into productJoin
+        //                      from product in productJoin.DefaultIfEmpty()
+        //                      join a in context.Accounts on c.AccountId equals a.AccountId into accountJoin
+        //                      from account in accountJoin.DefaultIfEmpty()
+                              
+        //                      where complaint.ComplaintId == c.ComplaintId && 
+        //                      complaint.AccountId == account.AccountId && 
+        //                      complaint.BarcodeId == product.BarcodeId
+                              
+        //                      select new ComplaintParamModel
+        //                      {
+        //                          ComplaintId = c.ComplaintId,
+        //                          AccountId = c.AccountId,
+        //                          AccountName = account.AccountName,
+        //                          BarcodeId = product.BarcodeId,
+        //                          UserId = c.UserId,
+        //                          ComplaintDescription = c.ComplaintDescription,
+        //                          isChecked = c.isChecked,
+        //                          ComplaintDate = c.ComplaintDate
+        //                      }).FirstOrDefault();
+
+        //        return result;
+        //    }
+        //}
 
     }
 }

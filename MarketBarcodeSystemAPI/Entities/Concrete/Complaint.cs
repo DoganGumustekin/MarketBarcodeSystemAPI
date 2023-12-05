@@ -10,7 +10,7 @@ namespace MarketBarcodeSystemAPI.Entities.Concrete
         public int UserId { get; set; }
         public string? ComplaintDescription { get; set; }
         public bool isChecked { get; set; }
-        public DateTime ComplaintDate { get; set; }
+        public DateTime ComplaintDate { get; set; } = DateTime.Now;
     }
 
     public class ComplaintForManagerModel

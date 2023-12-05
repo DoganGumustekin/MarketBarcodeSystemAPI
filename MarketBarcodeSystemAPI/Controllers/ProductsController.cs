@@ -63,6 +63,7 @@ namespace MarketBarcodeSystemAPI.Controllers
         //YAPILDI----------------------------------
         //Product tablosuna accountid ekle. bu ürün hangi markette bulunuyor bilmeliyim.
 
+        //Burası complaint modeldeki apideki kısımda yapıldı-------------------------------
         //Complaint tablosundaki date alanını frontend ten date.Now neyse onu gönderecek.
         //yani şikayet eklenirken.
 
@@ -97,6 +98,14 @@ namespace MarketBarcodeSystemAPI.Controllers
         //çünkü artık product tablonda accountid var. bir DTO yaz. şikayet etmek istediği ürünü kullanıcı barkoda
         //okuttuktan sonra şikayet et tuşuna bastıktan sonra bu dto ile accountid ve account nameyi çek ekranda
         //şikayet etme sayfasında bunları da göster.
+
+        //market kasiyeri karekodu okuttuktan sonra mobil ekranında beklemeye geçilecek. orada satışın website üzerinden
+        //yapılması bekleniyor diye bir esaj görünecek ve uygulama kullanılabilirliği kapatılacak. ürün satışı onaylanıp
+        //veya onaylanmadığında mobil uygulama burayı dinleyecek ve ona göre tekrar barkod okutma sayfasına otomatik
+        //döndürecek. bu kısım için frontend mobil de ayrı bir karekod okutma sayfası olacak. eğer orada karekodu okutursak
+        //o websiteye gidecek.
+
+        //veritabanındaki id ler neden 1000 artıyor bunu çöz kesinlikle localindeki sorunu.
         [HttpPost("update")]
         public IActionResult Update(Product product)
         {
