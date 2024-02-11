@@ -27,7 +27,7 @@ namespace MarketBarcodeSystemAPI.Controllers
             return BadRequest(result);
         }
 
-        //YAPILDI------------------------------------
+        //YAPILDI------------------------------------??
         //ischecked alanı, şikayet edliriken gönderdildiğinde her zman false 
         //gidecek müdür kontrol ettirip düzeltince ischecked true olacak. 
         //false olduğunda user şikayetine kontrol edildi diye görecek.

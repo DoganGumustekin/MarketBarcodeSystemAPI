@@ -43,7 +43,7 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
         [ValidationAspect(typeof(ComplaintValidator))]
         public IResult DeleteComplaint(Complaint complaint)
         {
-            IResult result = BusinessRules.Run(IsThisProductAvailable(complaint.BarcodeId,complaint.AccountId));
+            IResult result = BusinessRules.Run();
             if (result != null)
             {
                 return result;
