@@ -6,6 +6,9 @@ using Core.Utilities.IoC;
 using Autofac.Core;
 using Core.Extensions;
 using MarketBarcodeSystemAPI.Core.DependencyResolvers;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Core.Utilities.Security.Encryption;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,10 +20,29 @@ builder.Host.ConfigureContainer<ContainerBuilder>(builder => builder.RegisterMod
 
 builder.Services.AddControllers();
 
+builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.Configure<TokenOptions>(builder.Configuration.GetSection("TokenOptions"));
+//builder.Services.Configure<TokenOptions>(builder.Configuration.GetSection("TokenOptions"));
+
+var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+               .AddJwtBearer(options =>
+               {
+                   options.TokenValidationParameters = new TokenValidationParameters
+                   {
+                       ValidateIssuer = true,
+                       ValidateAudience = true,
+                       ValidateLifetime = true,
+                       ValidIssuer = tokenOptions.Issuer,
+                       ValidAudience = tokenOptions.Audience,
+                       ValidateIssuerSigningKey = true,
+                       IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
+                   };
+               });
 
 builder.Services.AddDependencyResolvers(new ICoreModule[] {
     new CoreModule()
@@ -28,8 +50,7 @@ builder.Services.AddDependencyResolvers(new ICoreModule[] {
 //ServiceTool.Create(builder.Services);
 
 var app = builder.Build();
-app.UseAuthentication();
-app.UseAuthorization();
+
 
 if (app.Environment.IsDevelopment())
 {
@@ -44,6 +65,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 

@@ -113,12 +113,22 @@ namespace MarketBarcodeSystemAPI.Controllers
         //yazılacak. bir veri gelmesi halinde otomatikmen veri websitesine aktarılacak.(Burada oluşan sorun, farklı farklı
         //marketler birbirini etkilememeli. burada rabbitmq ile bir çözüm bulunabilir. account tablosuna yeni alan eklenir.
         //(AccountOrderID) buna account ismine paralel bir isim verilir. bu isim rabbitmq daki route isminin yanına eklenir.
-        //(AccountOrderID + queueName(route name)) sonra burdan her account için ayrı bir kuyruk oluşur(direct exchange)
-        //buradan routekey account bazlı özelleştirildiği için her account kendi tarafındaki durumu dinler. rabbitmq kuyruğunu
+        //(AccountOrderID + queueName(route name)) sonra burdan bir kuyruk oluşur(direct exchange)
+        //buradan routekey account bazlı özelleştirildiği için her account kendi tarafındaki durumu dinler. Ama resposne gönderilirken de
+        //bu durumu ayrıştırabilen başka bir rabbirmmq kuyruğu oluşturulur. buda yine o account isminde olacak ve dönen responsede
+        //bir success mesajı döndürülür. yada tek kuyruklada olabilir. hangisi mantıklıysa o yapılacak. rabbitmq kuyruğunu
         //dinleyen backgroundservice kısmında queuename ile account tablosundaki AccountOrderID eşleşeceği için ef ile
         //bir sorgulama yapışlır ve sadece ilgili accounta response gönderilir.)
 
         //19veritabanındaki id ler neden 1000 artıyor bunu çöz kesinlikle localindeki sorunu.
+
+        //product tablosuna productRate diye bir alan ekle. ürüne puan verilebilsin.(ekstra)
+
+        //Siparişler tablosu olacak. burada hangis user hangi ürünü satın almışsa onu tutacaksın. User login olduktan sonra 
+        //kendi ana sayfasında daha önce aldığı ürünleri görebilir gibi bişey yapabilsin.
+
+        //website den onaylarken eleman qr kodu okutacak sonrasında websitede userin adı da yazılabilir ekrana siparişş web
+        //siteden onaylandığında, sipariş tablosuna kayıt atılabilir.
         [HttpPost("update")]
         public IActionResult Update(Product product)
         {
