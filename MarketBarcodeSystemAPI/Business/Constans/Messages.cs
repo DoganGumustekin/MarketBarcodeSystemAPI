@@ -31,5 +31,8 @@ namespace MarketBarcodeSystemAPI.Business.Constans
 
         //MÜDÜR-MARKET ELEMANI
         public static string AssignWorkManSuccessfully = "Market Elemanı Ataması Başarılı";
+
+        //SEPET
+        public static string CartAdded = "Sepete Eklendi";
     }
 }

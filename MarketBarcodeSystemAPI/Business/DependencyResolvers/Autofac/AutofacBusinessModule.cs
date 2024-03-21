@@ -34,6 +34,9 @@ namespace MarketBarcodeSystemAPI.Business.DependencyResolvers.Autofac
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
 
+            builder.RegisterType<CartManager>().As<ICartService>().SingleInstance();
+            builder.RegisterType<EfCartDal>().As<ICartDal>().SingleInstance();
+
             builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>();
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly(); //çalışan uygulama içerisinde 

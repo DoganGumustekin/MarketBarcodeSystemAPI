@@ -11,6 +11,7 @@ namespace MarketBarcodeSystemAPI.DataAccess.Concrete.EntityFramework
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=LabelPricingDb;Trusted_Connection=true");
+            
         }
 
         public DbSet<Product> Products { get; set; }
@@ -19,6 +20,7 @@ namespace MarketBarcodeSystemAPI.DataAccess.Concrete.EntityFramework
         public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
         public DbSet<Complaint> Complaints { get; set; }
         public DbSet<Account> Accounts { get; set; }
+        public DbSet<Cart> Cart { get; set; }
 
     }
 }

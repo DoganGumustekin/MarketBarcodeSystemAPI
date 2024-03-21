@@ -16,10 +16,5 @@
         {
 
         }
-
-        public SuccessDataResult() : base(default, true) //sadece başarılı mı değil mi 
-        {
-
-        }
     }
 }
