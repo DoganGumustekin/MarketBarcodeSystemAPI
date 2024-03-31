@@ -9,6 +9,22 @@ namespace MarketBarcodeSystemAPI.Core.DataAccess.EntityFramework
         where TEntity : class, IEntity, new()
         where TContext : DbContext, new()
     {
+
+        public void AddList(List<TEntity> entities)
+        {
+            using (TContext context = new TContext())
+            {
+                foreach (var entity in entities)
+                {
+                    var addedEntity = context.Entry(entity);
+                    addedEntity.State = EntityState.Added;
+                }
+
+                context.SaveChanges();
+            }
+        }
+
+
         public void Add(TEntity entity)
         {
             using (TContext context = new TContext())

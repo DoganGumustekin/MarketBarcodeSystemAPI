@@ -1,5 +1,4 @@
 ﻿using MarketBarcodeSystemAPI.Business.Abstract;
-using MarketBarcodeSystemAPI.Core.Entities.Concrete;
 using MarketBarcodeSystemAPI.Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,20 +7,19 @@ namespace MarketBarcodeSystemAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CartController : ControllerBase
+    public class OrderController : ControllerBase
     {
-        ICartService _cartService;
+        IOrderService _orderService;
 
-        public CartController(ICartService cartService)
+        public OrderController(IOrderService orderService)
         {
-            _cartService = cartService;
+            _orderService = orderService;
         }
 
-
-        [HttpGet("GetCartProductsList")]
-        public IActionResult GetCartProducts(int userId)
+        [HttpPost("OrderAdd")]
+        public IActionResult Add(List<Order> orders)
         {
-            var result = _cartService.GetCartProducts(userId);
+            var result = _orderService.AddOrder(orders);
             if (result.Success)
             {
                 return Ok(result);

@@ -9,6 +9,7 @@ using MarketBarcodeSystemAPI.Core.DependencyResolvers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Core.Utilities.Security.Encryption;
+using MarketBarcodeSystemAPI.Business.Concrete;
 
 var builder = WebApplication.CreateBuilder(args);
 

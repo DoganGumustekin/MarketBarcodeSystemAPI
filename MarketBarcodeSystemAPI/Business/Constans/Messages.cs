@@ -34,5 +34,7 @@ namespace MarketBarcodeSystemAPI.Business.Constans
 
         //SEPET
         public static string CartAdded = "Sepete Eklendi";
+        //SİPARİŞ (ORDER)
+        public static string OrdersAdded = "Sipariş Kayıt Edildi";
     }
 }

@@ -6,9 +6,10 @@ using MarketBarcodeSystemAPI.Entities.Concrete;
 
 namespace MarketBarcodeSystemAPI.Business.Concrete
 {
-    public class CartManager:ICartService
+    public class CartManager : ICartService
     {
         ICartDal _CartDal;
+
         public CartManager(ICartDal CartDal)
         {
             _CartDal = CartDal;

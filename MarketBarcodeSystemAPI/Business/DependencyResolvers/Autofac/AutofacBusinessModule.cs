@@ -37,16 +37,18 @@ namespace MarketBarcodeSystemAPI.Business.DependencyResolvers.Autofac
             builder.RegisterType<CartManager>().As<ICartService>().SingleInstance();
             builder.RegisterType<EfCartDal>().As<ICartDal>().SingleInstance();
 
+            builder.RegisterType<OrderManager>().As<IOrderService>().SingleInstance();
+            builder.RegisterType<EfOrderDal>().As<IOrderDal>().SingleInstance();
+
             builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>();
 
-            var assembly = System.Reflection.Assembly.GetExecutingAssembly(); //çalışan uygulama içerisinde 
+            var assembly = System.Reflection.Assembly.GetExecutingAssembly(); 
 
-            builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces() //inplemente edilmiş interfaceleri bul 
+            builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
                 .EnableInterfaceInterceptors(new ProxyGenerationOptions()
                 {
-                    Selector = new AspectInterceptorSelector() //onlar için aspectinterceptorselector u çağır. 
-                }).SingleInstance();                            //autofac bizim bütün sınıflarımız için önce bunu
-                                                                //çalıştırır bu adamın aspect i varmı
+                    Selector = new AspectInterceptorSelector() 
+                }).SingleInstance();
         }
     }
 }
