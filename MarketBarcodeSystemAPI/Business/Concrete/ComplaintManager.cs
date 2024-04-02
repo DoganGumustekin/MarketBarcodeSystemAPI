@@ -59,9 +59,9 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
         }
 
         //Bu müdürün göreceği şikayet listesi.
-        public IDataResult<List<ComplaintForManagerModel>> GetComplaintsForManager(Account account)
+        public IDataResult<List<ComplaintForManagerModel>> GetComplaintsForManager(int accountId)
         {
-            return new SuccessDataResult<List<ComplaintForManagerModel>>(_complaintDal.GetComplaintsForManager(account));
+            return new SuccessDataResult<List<ComplaintForManagerModel>>(_complaintDal.GetComplaintsForManager(accountId));
         }
 
         //Müdürün Complaintin ischeckedini true yapması.

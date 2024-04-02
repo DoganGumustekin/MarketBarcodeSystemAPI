@@ -15,10 +15,12 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
     public class UserManager : IUserService
     {
         IUserDal _userDal;
+        IAccountDal _accountDal;
 
-        public UserManager(IUserDal userDal)
+        public UserManager(IUserDal userDal, IAccountDal accountDal)
         {
             _userDal = userDal;
+            _accountDal = accountDal;
         }
 
         public List<OperationClaim> GetClaims(User user)
@@ -52,6 +54,11 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
             }
             _userDal.Update(user);
             return new SuccessResult(Messages.AssignWorkManSuccessfully);
+        }
+
+        public IResult GetAccountIdForAdmin(int userId)
+        {
+            return new SuccessDataResult<Account>(_accountDal.Get(p => p.UserId == userId));
         }
     }
 }

@@ -80,5 +80,16 @@ namespace MarketBarcodeSystemAPI.Controllers
             }
             return BadRequest(result);
         }
+
+        [HttpGet("GetAccountIdForAdmin")]
+        public IActionResult GetById(int userId)
+        {
+            var result = _userService.GetAccountIdForAdmin(userId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
     }
 }

@@ -10,36 +10,36 @@ namespace MarketBarcodeSystemAPI.DataAccess.Concrete.EntityFramework
     public class EfComplaintDal : EfEntityRepositoryBase<Complaint, MarketManagementContext>, IComplaintDal
     {
         //müdürün göreceği şikayet listesi.
-        public List<ComplaintForManagerModel> GetComplaintsForManager(Account account)
-        {
-            using (var context = new MarketManagementContext())
-            {
-                var result = (from complaint in context.Complaints
-                              join product in context.Products on complaint.BarcodeId equals product.BarcodeId into productJoin
-                              from product in productJoin.DefaultIfEmpty()
-                              join acc in context.Accounts on complaint.AccountId equals acc.AccountId into accountJoin
-                              from acc in accountJoin.DefaultIfEmpty()
-                              join user in context.User on complaint.UserId equals user.UserId into userJoin
-                              from user in userJoin.DefaultIfEmpty()
-                              where acc.AccountId == account.AccountId
-                              orderby complaint.ComplaintDate descending
-                              select new ComplaintForManagerModel
-                              {
-                                  ComplaintId = complaint.ComplaintId,
-                                  AccountId = acc.AccountId,
-                                  BarcodeId = product.BarcodeId,
-                                  ProductName = product.ProductName,
-                                  UserId = user.UserId,
-                                  FirstName = user.FirstName,
-                                  LastName = user.LastName,
-                                  ComplaintDescription = complaint.ComplaintDescription,
-                                  isChecked = complaint.isChecked,
-                                  ComplaintDate = complaint.ComplaintDate
-                              });
+        public List<ComplaintForManagerModel> GetComplaintsForManager(int accountId)
+{
+    using (var context = new MarketManagementContext())
+    {
+        var result = (from complaint in context.Complaints
+                      join product in context.Products on complaint.BarcodeId equals product.BarcodeId into productJoin
+                      from product in productJoin.DefaultIfEmpty()
+                      join user in context.User on complaint.UserId equals user.UserId into userJoin
+                      from user in userJoin.DefaultIfEmpty()
+                      where complaint.AccountId == accountId
+                      orderby complaint.ComplaintDate descending
+                      select new ComplaintForManagerModel
+                      {
+                          ComplaintId = complaint.ComplaintId,
+                          AccountId = complaint.AccountId,
+                          BarcodeId = product.BarcodeId,
+                          ProductName = product.ProductName,
+                          UserId = user.UserId,
+                          FirstName = user.FirstName,
+                          LastName = user.LastName,
+                          ComplaintDescription = complaint.ComplaintDescription,
+                          isChecked = complaint.isChecked,
+                          ComplaintDate = complaint.ComplaintDate,
+                          ComplaintCheckDate = complaint.ComplaintCheckDate
+                      }).ToList();
 
-                return result.ToList();
-            }
-        }
+        return result;
+    }
+}
+
 
 
         //Şikayet ekleme joini

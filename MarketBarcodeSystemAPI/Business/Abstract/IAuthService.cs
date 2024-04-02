@@ -13,5 +13,6 @@ namespace MarketBarcodeSystemAPI.Business.Abstract
         IDataResult<User> Login(UserForLoginDto userForLoginDto);//giriş yap
         IResult UserExists(string email);
         IDataResult<AccessToken> CreateAccessToken(User user);
+
     }
 }
