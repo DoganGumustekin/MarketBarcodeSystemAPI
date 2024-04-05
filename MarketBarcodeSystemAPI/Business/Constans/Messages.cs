@@ -24,7 +24,7 @@ namespace MarketBarcodeSystemAPI.Business.Constans
         //YETKİLENDİRME
         public static string AuthorizationDenied = "Yetkiniz Yok";
         //ŞİKAYET-COMPLAINT
-        public static string ComplaintAdded = "Şikayetiniz için teşekkür ederiz. Yönetici tarafından bilgilendirileceksiniz.";
+        public static string ComplaintAdded = "Şikayetiniz için teşekkür ederiz. Şikayetlerim sayfasından şikayet durumunuzu takip edebilirsiniz.";
         public static string ComplaintDeleted = "şikayetiniz silindi";
         public static string ComplaintUpdateisChecked = "Şikayet Durumu kontrol edildi.";
         public static string ProductIsNotAvailableForComplaint = "Bu ürün, bu markette satılmamaktadır.";
@@ -34,7 +34,9 @@ namespace MarketBarcodeSystemAPI.Business.Constans
 
         //SEPET
         public static string CartAdded = "Sepete Eklendi";
+        public static string cartDeleted = "Ürün sepetten silindi";
         //SİPARİŞ (ORDER)
         public static string OrdersAdded = "Sipariş Kayıt Edildi";
+        
     }
 }

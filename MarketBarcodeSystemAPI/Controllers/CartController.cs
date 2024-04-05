@@ -28,5 +28,16 @@ namespace MarketBarcodeSystemAPI.Controllers
             }
             return BadRequest(result);
         }
+
+        [HttpPost("DeleteProductInCart")]
+        public IActionResult DeleteProductInCart(Cart cart)
+        {
+            var result = _cartService.DeleteProductInCart(cart);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
     }
 }

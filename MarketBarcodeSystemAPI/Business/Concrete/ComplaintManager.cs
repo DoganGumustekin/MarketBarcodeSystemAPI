@@ -29,7 +29,7 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
         [ValidationAspect(typeof(ComplaintValidator))]
         public IResult AddComplaint(Complaint complaint)
         {
-            IResult result = BusinessRules.Run(IsThisProductAvailable(complaint.BarcodeId,complaint.AccountId));
+            IResult result = BusinessRules.Run();
             if (result != null)
             {
                 return result;
@@ -76,20 +76,23 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
             return new SuccessResult(Messages.ComplaintUpdateisChecked);
         }
 
-
-
-
-
-
-
-        private IResult IsThisProductAvailable(long barcodeId, int accountId)
+        public IDataResult<List<ComplaintForUserModel>> GetComplaintsForUser(int userId)
         {
-            var result = _productDal.GetAll(p => p.BarcodeId == barcodeId && p.AccountId == accountId).Any();
-            if (result)
-            {
-                return new SuccessResult();
-            }
-            return new ErrorResult(Messages.ProductIsNotAvailable);
+            return new SuccessDataResult<List<ComplaintForUserModel>>(_complaintDal.GetComplaintsForUser(userId));
         }
+
+
+
+
+
+        //private IResult IsThisProductAvailable(long barcodeId, int accountId)
+        //{
+        //    var result = _productDal.GetAll(p => p.BarcodeId == barcodeId && p.AccountId == accountId).Any();
+        //    if (result)
+        //    {
+        //        return new SuccessResult();
+        //    }
+        //    return new ErrorResult(Messages.ProductIsNotAvailable);
+        //}
     }
 }

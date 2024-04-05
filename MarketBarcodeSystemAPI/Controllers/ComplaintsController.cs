@@ -62,6 +62,18 @@ namespace MarketBarcodeSystemAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpGet("GetComplaintsForUser")]
+        public IActionResult GetComplaintsForUser(int userId)
+        {
+            var result = _complaintService.GetComplaintsForUser(userId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+
         //Müdürün complaint için ischeck false yapma. Yani şikayeti kontrol
         //etti müdür ve WorkMan e bildirim gönderdi burada bildirim ve mesaj ayarla.
         //complaint teki ischecked true olursa frontend te Userin şikayet listesinde kontrol edildi 
