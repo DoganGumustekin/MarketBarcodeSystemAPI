@@ -21,4 +21,15 @@
         public bool isWorkMan { get; set; }
         public bool Status { get; set; } //durum 
     }
+
+    public class WorkmanListModel
+    {
+        public int UserId { get; set; }
+        public int AccountId { get; set; }
+        public string? AccountName { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string? Email { get; set; }
+        public string? Name { get; set; } //rol
+    }
 }

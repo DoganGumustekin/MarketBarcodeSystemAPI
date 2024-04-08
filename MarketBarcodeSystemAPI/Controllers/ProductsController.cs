@@ -163,9 +163,9 @@ namespace MarketBarcodeSystemAPI.Controllers
         }
 
         [HttpPost("addtocart")]
-        public IActionResult AddToCart(Product product,int  userId, int NumberOfProducts)
+        public IActionResult AddToCart(long barcodeId,int  userId, int NumberOfProducts)
         {
-            var result = _productService.AddToCart(product, userId, NumberOfProducts);
+            var result = _productService.AddToCart(barcodeId, userId, NumberOfProducts);
             if (result.Success)
             {
                 return Ok(result);
@@ -173,15 +173,15 @@ namespace MarketBarcodeSystemAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost("deletetocart")]
-        public IActionResult DeleteToCart(Product product, int NumberOfProducts)
-        {
-            var result = _productService.DeleteToCart(product, NumberOfProducts);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
+        //[HttpPost("deletetocart")]
+        //public IActionResult DeleteToCart(Product product, int NumberOfProducts)
+        //{
+        //    var result = _productService.DeleteToCart(product, NumberOfProducts);
+        //    if (result.Success)
+        //    {
+        //        return Ok(result);
+        //    }
+        //    return BadRequest(result);
+        //}
     }
 }

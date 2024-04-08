@@ -6,6 +6,7 @@ using MarketBarcodeSystemAPI.Core.Aspects.Autofac.Validation;
 using MarketBarcodeSystemAPI.Core.Utilities.Business;
 using MarketBarcodeSystemAPI.Core.Utilities.Results;
 using MarketBarcodeSystemAPI.DataAccess.Abstract;
+using MarketBarcodeSystemAPI.DataAccess.Concrete.EntityFramework;
 using MarketBarcodeSystemAPI.Entities.Concrete;
 using IResult = MarketBarcodeSystemAPI.Core.Utilities.Results.IResult;
 
@@ -65,30 +66,33 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
             return new SuccessDataResult<Product>(_productDal.Get(p => p.BarcodeId == barcodeId));
         }
 
-        public IResult AddToCart(Product product, int userId, int numberOfProducts)
+        public IResult AddToCart(long barcodeId, int userId, int numberOfProducts)
         {
             var cart = new Cart();
             cart.UserId = userId;
-            cart.BarcodeId = product.BarcodeId;
+            cart.BarcodeId = barcodeId;
             cart.NumberOfProduct = numberOfProducts;
 
-
-            var result = product.StockQuantity - numberOfProducts;
-            product.StockQuantity = result;
-            _productDal.Update(product);
-
             _cartDal.Add(cart);
-
+            using (MarketManagementContext context = new MarketManagementContext())
+            {
+                var product = context.Products.FirstOrDefault(p => p.BarcodeId == barcodeId);
+                if (product != null)
+                {
+                    product.StockQuantity = product.StockQuantity - numberOfProducts;
+                    context.SaveChanges();
+                }
+            }
             return new SuccessResult(Messages.CartAdded);
         }
 
-        public IResult DeleteToCart(Product product, int NumberOfProducts) //sepetten çıkar
-        {
-            var result = product.StockQuantity + NumberOfProducts;
-            product.StockQuantity = result;
-            _productDal.Update(product);
-            return new SuccessResult(Messages.DeleteToCart);
-        }
+        //public IResult DeleteToCart(Product product, int NumberOfProducts) //sepetten çıkar
+        //{
+        //    var result = product.StockQuantity + NumberOfProducts;
+        //    product.StockQuantity = result;
+        //    _productDal.Update(product);
+        //    return new SuccessResult(Messages.DeleteToCart);
+        //}
 
 
         private IResult IsThisProductAvailable(long barcodeId)
@@ -110,5 +114,15 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
             }
             return new SuccessResult();
         }
+
+        //private string ConvertStringToByteForImage(string imageString)
+        //{
+        //    byte[] imageByte = Convert.FromBase64String(imageString);
+        //    if (imageByte == null)
+        //    {
+        //        return imageString;
+        //    }
+        //    return imageByte.ToString();
+        //}
     }
 }

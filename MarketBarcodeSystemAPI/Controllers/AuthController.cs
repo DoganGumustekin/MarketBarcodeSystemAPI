@@ -70,10 +70,10 @@ namespace MarketBarcodeSystemAPI.Controllers
         }
 
         //Müdürün market elemanı atama isteği.
-        [HttpPost("WorkManUpdate")]
-        public IActionResult WorkManUpdate(User user)
+        [HttpPost("WorkManAdd")]
+        public IActionResult WorkManAdd(string eMail, Account account)
         {
-            var result = _userService.WorkManUpdate(user);
+            var result = _userService.WorkManAdd(eMail, account);
             if (result.Success)
             {
                 return Ok(result);
@@ -85,6 +85,39 @@ namespace MarketBarcodeSystemAPI.Controllers
         public IActionResult GetById(int userId)
         {
             var result = _userService.GetAccountIdForAdmin(userId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("WorkManList")]
+        public IActionResult WorkManList(int AccountKey)
+        {
+            var result = _userService.WorkManList(AccountKey);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("DeleteWorkMan")]
+        public IActionResult DeleteWorkMan(int userId)
+        {
+            var result = _userService.DeleteWorkMan(userId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("GetUserWithUserEmail")]
+        public IActionResult GetById(string eMail)
+        {
+            var result = _userService.GetUserWithUserEmail(eMail);
             if (result.Success)
             {
                 return Ok(result);

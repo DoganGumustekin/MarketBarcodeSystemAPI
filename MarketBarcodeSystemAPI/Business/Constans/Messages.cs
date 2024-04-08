@@ -30,13 +30,15 @@ namespace MarketBarcodeSystemAPI.Business.Constans
         public static string ProductIsNotAvailableForComplaint = "Bu ürün, bu markette satılmamaktadır.";
 
         //MÜDÜR-MARKET ELEMANI
-        public static string AssignWorkManSuccessfully = "Market Elemanı Ataması Başarılı";
+        public static string AssignWorkManSuccessfully = "Market Elemanı Atandı";
 
         //SEPET
         public static string CartAdded = "Sepete Eklendi";
         public static string cartDeleted = "Ürün sepetten silindi";
         //SİPARİŞ (ORDER)
         public static string OrdersAdded = "Sipariş Kayıt Edildi";
-        
+        public static string DeletedWorkMan = "Eleman Silindi";
+        public static string WorkmanDeletedError = "Eleman Bulunamadı";
+        public static string WrongEmail = "Eleman atama işlemi başarısız. Email adresini doğru girdiğinizden emin olun!!";
     }
 }

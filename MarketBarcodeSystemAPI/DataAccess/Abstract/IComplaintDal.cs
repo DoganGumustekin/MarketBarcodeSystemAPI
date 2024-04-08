@@ -7,7 +7,7 @@ namespace MarketBarcodeSystemAPI.DataAccess.Abstract
 {
     public interface IComplaintDal:IEntityRepository<Complaint>
     {
-        List<ComplaintForManagerModel> GetComplaintsForManager(int accountId);
+        List<ComplaintForManagerModel> GetComplaintsForManager(int AccountKey);
         List<ComplaintForUserModel> GetComplaintsForUser(int userId);
     }
 }

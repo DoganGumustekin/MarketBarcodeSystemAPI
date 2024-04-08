@@ -12,7 +12,10 @@ namespace MarketBarcodeSystemAPI.Business.Abstract
         void Add(User user);
         User GetByMail(string email);
         IDataResult<List<UserListModel>> GetUserList();
-        IResult WorkManUpdate(User user);
+        IResult WorkManAdd(string eMail, Account account);
         IResult GetAccountIdForAdmin(int userId);
+        IDataResult<List<WorkmanListModel>> WorkManList(int AccountKey);
+        IResult DeleteWorkMan(int userId);
+        IDataResult<User> GetUserWithUserEmail(string eMail);
     }
 }

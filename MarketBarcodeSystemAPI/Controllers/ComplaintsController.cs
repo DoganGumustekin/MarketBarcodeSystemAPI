@@ -52,9 +52,9 @@ namespace MarketBarcodeSystemAPI.Controllers
 
         //müdürün göreceği şikayet listesi.
         [HttpGet("GetComplaintsForManager")]
-        public IActionResult GetComplaintsForManager(int accountId)
+        public IActionResult GetComplaintsForManager(int AccountKey)
         {
-            var result = _complaintService.GetComplaintsForManager(accountId);
+            var result = _complaintService.GetComplaintsForManager(AccountKey);
             if (result.Success)
             {
                 return Ok(result);

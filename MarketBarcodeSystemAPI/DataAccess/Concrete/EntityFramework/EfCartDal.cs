@@ -24,7 +24,7 @@ namespace MarketBarcodeSystemAPI.DataAccess.Concrete.EntityFramework
                                   CartId = cart.CartId,
                                   UserId = cart.UserId,
                                   BarcodeId = cart.BarcodeId,
-                                  AccountId = product != null ? product.AccountId : 0,
+                                  AccountKey = product != null ? product.AccountKey : 0,
                                   ProductName = product != null ? product.ProductName : null,
                                   ProductPrice = product != null ? product.ProductPrice : 0,
                                   NumberOfProduct = cart.NumberOfProduct

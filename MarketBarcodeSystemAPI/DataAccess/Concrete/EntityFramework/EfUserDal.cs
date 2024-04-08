@@ -48,5 +48,31 @@ namespace DataAccess.Concrete.EntityFramework
             }
 
         }
+
+        public List<WorkmanListModel> GetWorkmans(int AccountKey)
+        {
+            using (var dbContext = new MarketManagementContext())
+            {
+                var result = (from user in dbContext.User
+                            join userOpClaim in dbContext.UserOperationClaims on user.UserId equals userOpClaim.UserId into userOpClaimGroup
+                            from userOpClaim in userOpClaimGroup.DefaultIfEmpty()
+                            join opClaim in dbContext.OperationClaims on userOpClaim.OperationClaimId equals opClaim.Id into opClaimGroup
+                            from opClaim in opClaimGroup.DefaultIfEmpty()
+                            join account in dbContext.Accounts on user.UserId equals account.UserId into accountGroup
+                            from account in accountGroup.DefaultIfEmpty()
+                            where account != null && account.AccountKey == AccountKey
+                              select new WorkmanListModel
+                            {
+                                UserId = user.UserId,
+                                AccountId = account.AccountId,
+                                AccountName = account.AccountName,
+                                FirstName = user.FirstName,
+                                LastName = user.LastName,
+                                Email = user.Email,
+                                Name = opClaim != null ? opClaim.Name : null
+                            }).ToList();
+                return result;
+            }
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace MarketBarcodeSystemAPI.DataAccess.Abstract
     {
         List<OperationClaim> GetClaims(User user);
         List<UserListModel> GetUsers();
+        List<WorkmanListModel> GetWorkmans(int AccountKey);
     }
 }
