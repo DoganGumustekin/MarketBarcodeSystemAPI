@@ -25,18 +25,37 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
 
         //[SecuredOperation("admin")]
         [ValidationAspect(typeof(ProductValidator))]
-        public IResult Add(Product product)
+        public async Task<IResult> Add(Product product)
         {
             IResult result = BusinessRules.Run(DidThisProductAlreadyExist(product.BarcodeId));
             if (result != null)
             {
                 return result;
             }
-            _productDal.Add(product);
-            return new SuccessResult(Messages.ProductAdded);
+            else
+            {
+                using (MarketManagementContext context = new MarketManagementContext())
+                {
+                    byte[] imageDataBytes = Convert.FromBase64String(product.ImageData);
+                    string addImage = await SaveImageAsync(imageDataBytes);
+
+                    Product addProduct = new Product();
+                    addProduct.BarcodeId = product.BarcodeId;
+                    addProduct.AccountKey = product.AccountKey;
+                    addProduct.ImageData = addImage;
+                    addProduct.ImageName = addImage;
+                    addProduct.ProductName = product.ProductName;
+                    addProduct.ProductPrice = product.ProductPrice;
+                    addProduct.Description = product.Description;
+                    addProduct.StockQuantity = product.StockQuantity;
+
+                    _productDal.Add(addProduct);
+                }
+                return new SuccessResult(Messages.ProductAdded);
+            }
         }
 
-        
+
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Delete(Product product)
         {
@@ -63,7 +82,16 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
 
         public IDataResult<Product> GetById(long barcodeId)
         {
-            return new SuccessDataResult<Product>(_productDal.Get(p => p.BarcodeId == barcodeId));
+            //return new SuccessDataResult<Product>(_productDal.Get(p => p.BarcodeId == barcodeId));
+
+            var product = _productDal.Get(p => p.BarcodeId == barcodeId);
+            if (product != null)
+            {
+                // Ürün bulunduğunda, resim verisini de döndür.
+                product.ImageData = GetImageAsBase64String(product.ImageData);
+                return new SuccessDataResult<Product>(product);
+            }
+            return new ErrorDataResult<Product>("Ürün bulunamadı");
         }
 
         public IResult AddToCart(long barcodeId, int userId, int numberOfProducts)
@@ -86,15 +114,6 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
             return new SuccessResult(Messages.CartAdded);
         }
 
-        //public IResult DeleteToCart(Product product, int NumberOfProducts) //sepetten çıkar
-        //{
-        //    var result = product.StockQuantity + NumberOfProducts;
-        //    product.StockQuantity = result;
-        //    _productDal.Update(product);
-        //    return new SuccessResult(Messages.DeleteToCart);
-        //}
-
-
         private IResult IsThisProductAvailable(long barcodeId)
         {
             var result = _productDal.GetAll(p => p.BarcodeId == barcodeId).Any();
@@ -115,14 +134,33 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
             return new SuccessResult();
         }
 
-        //private string ConvertStringToByteForImage(string imageString)
-        //{
-        //    byte[] imageByte = Convert.FromBase64String(imageString);
-        //    if (imageByte == null)
-        //    {
-        //        return imageString;
-        //    }
-        //    return imageByte.ToString();
-        //}
+        private async Task<string> SaveImageAsync(byte[] imageData)
+        {
+            string uniqueFileName = Guid.NewGuid().ToString() + ".jpg";
+            string filePath = Path.Combine("C:\\Users\\Doğan\\Desktop\\Images", uniqueFileName);
+
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                await fileStream.WriteAsync(imageData, 0, imageData.Length);
+            }
+
+            return uniqueFileName;
+        }
+
+        private string GetImageAsBase64String(string imageName)
+        {
+            try
+            {
+                string imagePath = Path.Combine("C:\\Users\\Doğan\\Desktop\\Images", imageName);
+                byte[] imageBytes = System.IO.File.ReadAllBytes(imagePath);
+                return Convert.ToBase64String(imageBytes);
+            }
+            catch (Exception ex)
+            {
+                // Hata oluştuğunda logla ve boş bir string döndür.
+                Console.WriteLine("Resim okuma hatası: " + ex.Message);
+                return string.Empty;
+            }
+        }
     }
 }

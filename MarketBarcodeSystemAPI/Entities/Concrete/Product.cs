@@ -9,7 +9,8 @@ namespace MarketBarcodeSystemAPI.Entities.Concrete
         [Key]
         public long BarcodeId { get; set; }
         public int AccountKey { get; set; }
-        public byte[]? ImageData { get; set; }
+        public string? ImageData { get; set; }
+        public string? ImageName { get; set; }
         public string ProductName { get; set; }
         public double ProductPrice { get; set; }
         public string Description { get; set; }
