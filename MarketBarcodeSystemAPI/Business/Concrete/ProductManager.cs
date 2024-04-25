@@ -82,12 +82,9 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
 
         public IDataResult<Product> GetById(long barcodeId)
         {
-            //return new SuccessDataResult<Product>(_productDal.Get(p => p.BarcodeId == barcodeId));
-
             var product = _productDal.Get(p => p.BarcodeId == barcodeId);
             if (product != null)
             {
-                // Ürün bulunduğunda, resim verisini de döndür.
                 product.ImageData = GetImageAsBase64String(product.ImageData);
                 return new SuccessDataResult<Product>(product);
             }
@@ -96,14 +93,24 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
 
         public IResult AddToCart(long barcodeId, int userId, int numberOfProducts)
         {
-            var cart = new Cart();
-            cart.UserId = userId;
-            cart.BarcodeId = barcodeId;
-            cart.NumberOfProduct = numberOfProducts;
-
-            _cartDal.Add(cart);
             using (MarketManagementContext context = new MarketManagementContext())
             {
+                var cartForMultipleProducttInCart = context.Cart.FirstOrDefault(c => c.BarcodeId == barcodeId && c.UserId == userId);
+                if (cartForMultipleProducttInCart != null)
+                {
+                    cartForMultipleProducttInCart.NumberOfProduct += numberOfProducts;
+                    _cartDal.Update(cartForMultipleProducttInCart);
+                }
+                else
+                {
+                    var cart = new Cart();
+                    cart.UserId = userId;
+                    cart.BarcodeId = barcodeId;
+                    cart.NumberOfProduct = numberOfProducts;
+                    _cartDal.Add(cart);
+                }
+
+
                 var product = context.Products.FirstOrDefault(p => p.BarcodeId == barcodeId);
                 if (product != null)
                 {

@@ -6,6 +6,7 @@ namespace MarketBarcodeSystemAPI.Business.Abstract
 {
     public interface IOrderService
     {
-        IResult AddOrder(List<Order> orders);
+        IResult AddOrders(List<Order> orders);
+        IResult OrderCanceled(int userId);
     }
 }

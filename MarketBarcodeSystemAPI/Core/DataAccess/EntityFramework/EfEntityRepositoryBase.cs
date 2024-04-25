@@ -10,6 +10,16 @@ namespace MarketBarcodeSystemAPI.Core.DataAccess.EntityFramework
         where TContext : DbContext, new()
     {
 
+        public void Add(TEntity entity)
+        {
+            using (TContext context = new TContext())
+            {
+                var addedEntity = context.Entry(entity);
+                addedEntity.State = EntityState.Added;
+                context.SaveChanges();
+            }
+        }
+
         public void AddList(List<TEntity> entities)
         {
             using (TContext context = new TContext())
@@ -24,23 +34,48 @@ namespace MarketBarcodeSystemAPI.Core.DataAccess.EntityFramework
             }
         }
 
-
-        public void Add(TEntity entity)
-        {
-            using (TContext context = new TContext())
-            {
-                var addedEntity = context.Entry(entity);
-                addedEntity.State = EntityState.Added;
-                context.SaveChanges();
-            }
-        }
-
         public void Delete(TEntity entity)
         {
             using (TContext context = new TContext())
             {
                 var deletedEntity = context.Entry(entity);
                 deletedEntity.State = EntityState.Deleted;
+                context.SaveChanges();
+            }
+        }
+
+        public void DeleteList(List<TEntity> entities)
+        {
+            using (TContext context = new TContext())
+            {
+                foreach (var entity in entities)
+                {
+                    var deletedEntity = context.Entry(entity);
+                    deletedEntity.State = EntityState.Deleted;
+                }
+                context.SaveChanges();
+            }
+        }
+
+        public void Update(TEntity entity)
+        {
+            using (TContext context = new TContext())
+            {
+                var updatedEntity = context.Entry(entity);
+                updatedEntity.State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+        public void UpdateList(List<TEntity> entities)
+        {
+            using (TContext context = new TContext())
+            {
+                foreach (var entity in entities)
+                {
+                    var updatedEntity = context.Entry(entity);
+                    updatedEntity.State = EntityState.Modified;
+                }
                 context.SaveChanges();
             }
         }
@@ -61,14 +96,6 @@ namespace MarketBarcodeSystemAPI.Core.DataAccess.EntityFramework
             }
         }
 
-        public void Update(TEntity entity)
-        {
-            using (TContext context = new TContext())
-            {
-                var updatedEntity = context.Entry(entity);
-                updatedEntity.State = EntityState.Modified;
-                context.SaveChanges();
-            }
-        }
+        
     }
 }

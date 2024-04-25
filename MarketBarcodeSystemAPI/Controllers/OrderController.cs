@@ -19,7 +19,18 @@ namespace MarketBarcodeSystemAPI.Controllers
         [HttpPost("OrderAdd")]
         public IActionResult Add(List<Order> orders)
         {
-            var result = _orderService.AddOrder(orders);
+            var result = _orderService.AddOrders(orders);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpPost("OrderCanceled")]
+        public IActionResult OrderCanceled(int userId)
+        {
+            var result = _orderService.OrderCanceled(userId);
             if (result.Success)
             {
                 return Ok(result);
