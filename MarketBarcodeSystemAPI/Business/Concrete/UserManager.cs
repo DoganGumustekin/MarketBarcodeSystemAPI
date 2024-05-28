@@ -52,6 +52,28 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
             return new SuccessDataResult<Account>(_accountDal.Get(p => p.UserId == userId));
         }
 
+        //bool IUserService.DoesContainAccountKeyForUser(int accountKey)
+        //{
+        //    var result = _accountDal.Get(a => a.AccountKey == accountKey);
+
+        //    if (result != null)
+        //    {
+        //        return true;
+        //    }
+        //    return false;
+        //}
+
+
+        //public IResult DoesContainAccountKeyForUser(int accountKey)
+        //{
+        //    return new SuccessDataResult<Account>(_accountDal.Get(a => a.AccountKey == accountKey));
+        //}
+
+        public IDataResult<List<Account>> DoesContainAccountKeyForUser(int accountKey)
+        {
+            return new SuccessDataResult<List<Account>>(_accountDal.GetAll(a => a.AccountKey == accountKey));
+        }
+
         public IDataResult<List<WorkmanListModel>> WorkManList(int AccountKey)
         {
             return new SuccessDataResult<List<WorkmanListModel>>(_userDal.GetWorkmans(AccountKey));
@@ -87,7 +109,7 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
                 {
                     UserOperationClaim userOperationClaim = new UserOperationClaim();
                     userOperationClaim.UserId = user.UserId;
-                    userOperationClaim.OperationClaimId = 2;
+                    userOperationClaim.OperationClaimId = 13;
                     context.UserOperationClaims.Add(userOperationClaim);
                     _accountDal.Add(account);
                     context.SaveChanges();
@@ -101,5 +123,7 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
         {
             return new SuccessDataResult<User>(_userDal.Get(u => u.Email == eMail));
         }
+
+        
     }
 }

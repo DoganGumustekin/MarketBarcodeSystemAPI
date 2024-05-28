@@ -27,7 +27,7 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
         [ValidationAspect(typeof(ProductValidator))]
         public async Task<IResult> Add(Product product)
         {
-            IResult result = BusinessRules.Run(DidThisProductAlreadyExist(product.BarcodeId));
+            IResult result = BusinessRules.Run(DidThisProductAlreadyExist(product.BarcodeId, product.AccountKey));
             if (result != null)
             {
                 return result;
@@ -59,30 +59,46 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Delete(Product product)
         {
+            var deleteProduct = _productDal.Get(p => p.BarcodeId == product.BarcodeId && p.AccountKey == product.AccountKey);
             IResult result = BusinessRules.Run();
             if (result != null)
             {
                 return result;
             }
-            _productDal.Delete(product);
+            _productDal.Delete(deleteProduct);
             return new SuccessResult(Messages.ProductDeleted);
         }
 
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Update(Product product)
         {
-            IResult result = BusinessRules.Run(IsThisProductAvailable(product.BarcodeId));
+            var updateProduct = _productDal.Get(p => p.BarcodeId == product.BarcodeId && p.AccountKey == product.AccountKey);
+            IResult result = BusinessRules.Run();
             if (result != null)
             {
                 return result;
             }
-            _productDal.Update(product);
-            return new SuccessResult(Messages.ProductUpdated);
+            if (updateProduct != null)
+            {
+                updateProduct.ImageData = product.ImageData;
+                updateProduct.ImageName = product.ImageName;
+                //updateProduct.AccountKey = product.AccountKey;
+                updateProduct.ProductName = product.ProductName;
+                updateProduct.ProductPrice = product.ProductPrice;
+                updateProduct.Description = product.Description;
+                updateProduct.StockQuantity = product.StockQuantity;
+
+                _productDal.Update(updateProduct);
+                return new SuccessResult(Messages.ProductUpdated);
+            }
+            return new ErrorResult(Messages.ProductUnUpdated);
+            
+            
         }
 
-        public IDataResult<Product> GetById(long barcodeId)
+        public IDataResult<Product> GetById(long barcodeId, int accountKey)
         {
-            var product = _productDal.Get(p => p.BarcodeId == barcodeId);
+            var product = _productDal.Get(p => p.BarcodeId == barcodeId && p.AccountKey == accountKey);
             if (product != null)
             {
                 product.ImageData = GetImageAsBase64String(product.ImageData);
@@ -131,9 +147,9 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
             return new ErrorResult(Messages.ProductIsNotAvailable);
         }
 
-        private IResult DidThisProductAlreadyExist(long barcodeId)
+        private IResult DidThisProductAlreadyExist(long barcodeId, int accountKey)
         {
-            var result = _productDal.GetAll(p => p.BarcodeId == barcodeId).Any();
+            var result = _productDal.GetAll(p => p.BarcodeId == barcodeId && p.AccountKey == accountKey).Any();
             if (result)
             {
                 return new ErrorResult(Messages.ProductIsAvailable);
@@ -164,7 +180,6 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
             }
             catch (Exception ex)
             {
-                // Hata oluştuğunda logla ve boş bir string döndür.
                 Console.WriteLine("Resim okuma hatası: " + ex.Message);
                 return string.Empty;
             }

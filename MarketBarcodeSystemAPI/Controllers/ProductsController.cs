@@ -50,9 +50,9 @@ namespace MarketBarcodeSystemAPI.Controllers
         }
 
         [HttpGet("getbyid")]
-        public IActionResult GetById(long id)
+        public IActionResult GetById(long id, int accountKey)
         {
-            var result = _productService.GetById(id);
+            var result = _productService.GetById(id, accountKey);
             if (result.Success)
             {
                 return Ok(result);

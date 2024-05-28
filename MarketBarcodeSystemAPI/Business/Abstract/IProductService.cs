@@ -9,7 +9,7 @@ namespace MarketBarcodeSystemAPI.Business.Abstract
         Task<IResult> Add(Product product);
         IResult Update(Product product);
         IResult Delete(Product product);
-        IDataResult<Product> GetById(long barcodeId);
+        IDataResult<Product> GetById(long barcodeId, int accountKey);
         IResult AddToCart(long barcodeId, int userId, int NumberOfProducts);
     }
 }

@@ -92,6 +92,17 @@ namespace MarketBarcodeSystemAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpGet("DoesContainAccountKeyForUser")]
+        public IActionResult DoesContainAccountKeyForUser(int accountKey)
+        {
+            var result = _userService.DoesContainAccountKeyForUser(accountKey);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
         [HttpGet("WorkManList")]
         public IActionResult WorkManList(int AccountKey)
         {

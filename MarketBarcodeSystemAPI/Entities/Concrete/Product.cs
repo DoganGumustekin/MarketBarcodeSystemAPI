@@ -6,7 +6,7 @@ namespace MarketBarcodeSystemAPI.Entities.Concrete
 {
     public class Product : IEntity
     {
-        [Key]
+        public int ProductId { get; set; }
         public long BarcodeId { get; set; }
         public int AccountKey { get; set; }
         public string? ImageData { get; set; }

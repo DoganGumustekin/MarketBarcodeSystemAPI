@@ -14,6 +14,7 @@ namespace MarketBarcodeSystemAPI.Business.Abstract
         IDataResult<List<UserListModel>> GetUserList();
         IResult WorkManAdd(string eMail, Account account);
         IResult GetAccountIdForAdmin(int userId);
+        IDataResult<List<Account>> DoesContainAccountKeyForUser(int accountKey);
         IDataResult<List<WorkmanListModel>> WorkManList(int AccountKey);
         IResult DeleteWorkMan(int userId);
         IDataResult<User> GetUserWithUserEmail(string eMail);
