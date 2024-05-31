@@ -17,9 +17,9 @@ namespace MarketBarcodeSystemAPI.Controllers
         }
 
         [HttpPost("OrderAdd")]
-        public IActionResult Add(List<Order> orders)
+        public IActionResult Add(List<Order> orders, int managerUserId)
         {
-            var result = _orderService.AddOrders(orders);
+            var result = _orderService.AddOrders(orders,managerUserId);
             if (result.Success)
             {
                 return Ok(result);

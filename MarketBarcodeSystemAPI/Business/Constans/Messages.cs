@@ -42,5 +42,7 @@ namespace MarketBarcodeSystemAPI.Business.Constans
         public static string WorkmanDeletedError = "Eleman Bulunamadı";
         public static string WrongEmail = "Eleman atama işlemi başarısız. Email adresini doğru girdiğinizden emin olun!";
         public static string OrderCanceled = "Sipariş İptal Edildi";
+        public static string NotMatchAccountKey = "Market Kodu Eşleşmiyor! Lütfen siparişi iptal edin veya geri çıkıp QR kodu tekrar okutun.";
+
     }
 }
