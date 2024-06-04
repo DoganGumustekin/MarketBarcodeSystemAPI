@@ -61,9 +61,9 @@ namespace MarketBarcodeSystemAPI.Controllers
         }
 
         [HttpPost("addtocart")]
-        public IActionResult AddToCart(long barcodeId,int  userId, int NumberOfProducts)
+        public IActionResult AddToCart(long barcodeId,int  userId, int NumberOfProducts, int accountKey)
         {
-            var result = _productService.AddToCart(barcodeId, userId, NumberOfProducts);
+            var result = _productService.AddToCart(barcodeId, userId, NumberOfProducts, accountKey);
             if (result.Success)
             {
                 return Ok(result);

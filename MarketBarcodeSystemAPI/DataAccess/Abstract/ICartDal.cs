@@ -6,7 +6,7 @@ namespace MarketBarcodeSystemAPI.DataAccess.Abstract
 {
     public interface ICartDal : IEntityRepository<Cart>
     {
-        List<CartForOrderModel> GetCartProducts(int userId);
-
+        //List<CartForOrderModel> GetCartProducts(int userId);
+        List<CartForOrderModel> GetCartProducts(int userId, int accountKey);
     }
 }

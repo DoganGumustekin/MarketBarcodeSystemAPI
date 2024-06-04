@@ -19,9 +19,9 @@ namespace MarketBarcodeSystemAPI.Controllers
 
 
         [HttpGet("GetCartProductsList")]
-        public IActionResult GetCartProducts(int userId)
+        public IActionResult GetCartProducts(int userId, int accountKey)
         {
-            var result = _cartService.GetCartProducts(userId);
+            var result = _cartService.GetCartProductsForCustomer(userId, accountKey);
             if (result.Success)
             {
                 return Ok(result);

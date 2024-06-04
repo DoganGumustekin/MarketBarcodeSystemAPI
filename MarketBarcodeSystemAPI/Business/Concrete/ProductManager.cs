@@ -107,11 +107,11 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
             return new ErrorDataResult<Product>("Ürün bulunamadı");
         }
 
-        public IResult AddToCart(long barcodeId, int userId, int numberOfProducts)
+        public IResult AddToCart(long barcodeId, int userId, int numberOfProducts, int accountKey)
         {
             using (MarketManagementContext context = new MarketManagementContext())
             {
-                var cartForMultipleProducttInCart = context.Cart.FirstOrDefault(c => c.BarcodeId == barcodeId && c.UserId == userId);
+                var cartForMultipleProducttInCart = context.Cart.FirstOrDefault(c => c.BarcodeId == barcodeId && c.UserId == userId && c.AccountKey == accountKey);
                 if (cartForMultipleProducttInCart != null)
                 {
                     cartForMultipleProducttInCart.NumberOfProduct += numberOfProducts;
@@ -123,6 +123,7 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
                     cart.UserId = userId;
                     cart.BarcodeId = barcodeId;
                     cart.NumberOfProduct = numberOfProducts;
+                    cart.AccountKey = accountKey;
                     _cartDal.Add(cart);
                 }
 

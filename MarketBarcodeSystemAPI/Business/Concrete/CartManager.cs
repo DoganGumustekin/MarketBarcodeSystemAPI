@@ -23,24 +23,23 @@ namespace MarketBarcodeSystemAPI.Business.Concrete
 
         public IResult DeleteProductInCart(Cart cart)
         {
+            var product = _productDal.Get(p => p.BarcodeId == cart.BarcodeId && p.AccountKey == cart.AccountKey);
+            var resultProduct = product.StockQuantity + cart.NumberOfProduct;
+            product.StockQuantity = resultProduct;
+            _productDal.Update(product);
+
             IResult result = BusinessRules.Run();
             if (result != null)
             {
                 return result;
             }
             _CartDal.Delete(cart);
-
-            var product = _productDal.Get(p => p.BarcodeId == cart.BarcodeId);
-            var resultProduct = product.StockQuantity + cart.NumberOfProduct;
-            product.StockQuantity = resultProduct;
-            _productDal.Update(product);
-
             return new SuccessResult(Messages.cartDeleted);
         }
 
-        public IDataResult<List<CartForOrderModel>> GetCartProducts(int userId)
+        public IDataResult<List<CartForOrderModel>> GetCartProductsForCustomer(int userId, int accountKey)
         {
-            return new SuccessDataResult<List<CartForOrderModel>>(_CartDal.GetCartProducts(userId));
+            return new SuccessDataResult<List<CartForOrderModel>>(_CartDal.GetCartProducts(userId,accountKey));
         }
     }
 }

@@ -7,7 +7,7 @@ namespace MarketBarcodeSystemAPI.Business.Abstract
 {
     public interface ICartService
     {
-        IDataResult<List<CartForOrderModel>> GetCartProducts(int userId);
+        IDataResult<List<CartForOrderModel>> GetCartProductsForCustomer(int userId, int accountKey);
         IResult DeleteProductInCart(Cart cart);
     }
 }

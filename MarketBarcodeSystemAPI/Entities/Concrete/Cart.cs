@@ -7,6 +7,7 @@ namespace MarketBarcodeSystemAPI.Entities.Concrete
         public long CartId { get; set; }
         public int UserId { get; set; }
         public long BarcodeId { get; set; }
+        public int AccountKey { get; set; }
         public int NumberOfProduct { get; set; }
     }
 
